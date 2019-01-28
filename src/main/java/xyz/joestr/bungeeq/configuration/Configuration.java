@@ -1,0 +1,410 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package xyz.joestr.bungeeq.configuration;
+
+import java.time.LocalDateTime;
+import java.util.stream.Collectors;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import xyz.joestr.bungeeq.BungeeQ;
+import xyz.joestr.bungeeq.unlockmanager.UnlockManager;
+import xyz.joestr.bungeeq.unlockmanager.UnlockStatus;
+
+/**
+ *
+ * @author Joel
+ */
+public class Configuration {
+
+    public static class Q {
+
+        public static class Get {
+
+            public static String command() {
+
+                return "qget";
+            }
+
+            public static String permission() {
+
+                return "bungeeq.command.qget";
+            }
+
+            public static String alias() {
+
+                return "qg";
+            }
+        }
+
+        public static class Ask {
+
+            public static String command() {
+
+                return "qask";
+            }
+
+            public static String permission() {
+
+                return "bungeeq.command.qask";
+            }
+
+            public static String alias() {
+
+                return "qa";
+            }
+        }
+
+        public static class Repeat {
+
+            public static String command() {
+
+                return "qrepeat";
+            }
+
+            public static String permission() {
+
+                return "bungeeq.command.qrepeat";
+            }
+
+            public static String alias() {
+
+                return "qr";
+            }
+        }
+
+        public static class Chat {
+
+            public static String command() {
+
+                return "qchat";
+            }
+
+            public static String permission() {
+
+                return "bungeeq.command.qchat";
+            }
+
+            public static String alias() {
+
+                return "qc";
+            }
+        }
+
+        public static class Exit {
+
+            public static String command() {
+
+                return "qexit";
+            }
+
+            public static String permission() {
+
+                return "bungeeq.command.qexit";
+            }
+
+            public static String alias() {
+
+                return "qe";
+            }
+        }
+
+        public static class Decline {
+
+            public static String command() {
+
+                return "qdecline";
+            }
+
+            public static String permission() {
+
+                return "bungeeq.command.qdecline";
+            }
+
+            public static String alias() {
+
+                return "qd";
+            }
+        }
+
+        public static class Unlock {
+
+            public static String command() {
+
+                return "qunlock";
+            }
+
+            public static String permission() {
+
+                return "bungeeq.command.qunlock";
+            }
+
+            public static String alias() {
+
+                return "qu";
+            }
+        }
+
+        public static class History {
+
+            public static String command() {
+
+                return "qhistory";
+            }
+
+            public static String permission() {
+
+                return "bungeeq.command.qhistory";
+            }
+
+            public static String alias() {
+
+                return "qh";
+            }
+        }
+
+        public static class Watch {
+
+            public static String command() {
+
+                return "qwatch";
+            }
+
+            public static String permission() {
+
+                return "bungeeq.command.qwatch";
+            }
+
+            public static String alias() {
+
+                return "qw";
+            }
+        }
+
+        public static class List {
+
+            public static String command() {
+
+                return "qlist";
+            }
+
+            public static String permission() {
+
+                return "bungeeq.command.qlist";
+            }
+
+            public static String alias() {
+
+                return "ql";
+            }
+        }
+
+        public static class Solution {
+
+            public static String command() {
+
+                return "qsolution";
+            }
+
+            public static String permission() {
+
+                return "bungeeq.command.qsolution";
+            }
+
+            public static String alias() {
+
+                return "qs";
+            }
+        }
+    }
+
+    public static class Activate {
+
+        public static String command() {
+
+            return "activate";
+        }
+
+        public static String permission() {
+
+            return "bungeeq.command.activate";
+        }
+
+        public static String alias() {
+
+            return "activate";
+        }
+    }
+
+    public static class Exit {
+
+        public static String command() {
+
+            return "exit";
+        }
+
+        public static String permission() {
+
+            return "bungeeq.command.exit";
+        }
+
+        public static String alias() {
+
+            return "exit";
+        }
+    }
+
+    public static String commandSenderIsNotAProxiedPlayer() {
+
+        return "Only players can execute this command!";
+    }
+
+    @Deprecated
+    public static String proxiedPlayerLacksPermission(String permission) {
+
+        return "You are lacking permission " + permission + "!";
+    }
+
+    public static BaseComponent[] usage(String commandString) {
+
+        return new ComponentBuilder("[BungeeQ] ")
+            .color(ChatColor.DARK_AQUA)
+            .append("Benutze: ")
+            .color(ChatColor.RED)
+            .append("/" + commandString)
+            .color(ChatColor.GRAY)
+            .create();
+    }
+
+    public static BaseComponent[] transformForUnlockSession(String sender, String message) {
+
+        if (sender != null) {
+            return new ComponentBuilder("[Q] ")
+                .color(ChatColor.DARK_AQUA)
+                .append(sender)
+                .color(ChatColor.GRAY)
+                .append(": ")
+                .color(ChatColor.DARK_AQUA)
+                .append(message)
+                .color(ChatColor.AQUA)
+                .create();
+        }
+
+        return new ComponentBuilder("[U] ")
+            .color(ChatColor.DARK_AQUA)
+            .append(message)
+            .color(ChatColor.AQUA)
+            .create();
+    }
+
+    public static BaseComponent[] transformForUnlockers(String message) {
+
+        return new ComponentBuilder("[BungeeQ] ")
+            .color(ChatColor.DARK_AQUA)
+            .bold(true)
+            .append(message)
+            .color(ChatColor.AQUA)
+            .bold(true)
+            .create();
+    }
+
+    public static BaseComponent[] transformForUnlocker(String message) {
+
+        return new ComponentBuilder("[BungeeQ] ")
+            .color(ChatColor.DARK_AQUA)
+            .append(message)
+            .color(ChatColor.AQUA)
+            .create();
+    }
+
+    public static BaseComponent[] transformForTarget(String message) {
+
+        return new ComponentBuilder("[BungeeQ] ")
+            .color(ChatColor.DARK_AQUA)
+            .append(message)
+            .color(ChatColor.AQUA)
+            .create();
+    }
+
+    public static String unlockGroup() {
+
+        return "player";
+    }
+
+    public static BaseComponent[] transformHistoryHead(String target) {
+
+        return new ComponentBuilder("Freischaltgeschichte von " + target + ":")
+            .color(ChatColor.DARK_AQUA)
+            .create();
+    }
+
+    public static BaseComponent[] transformHistoryBody(String unlocker, LocalDateTime start, LocalDateTime end, Integer status, String notice) {
+
+        return new ComponentBuilder(" ╚ Freischaltung bei " + unlocker + "\n")
+            .color(ChatColor.AQUA)
+            .append("  ╠ Start um " + start.toString() + "\n")
+            .color(ChatColor.AQUA)
+            .append("  ╠ Ende um " + end.toString() + "\n")
+            .color(ChatColor.AQUA)
+            .append("  ╠ Status: " + UnlockStatus.values()[status].name() + "\n")
+            .color(ChatColor.AQUA)
+            .append("  ╚ Notiz: " + notice + "")
+            .color(ChatColor.AQUA)
+            .create();
+    }
+
+    public static class ConfigurationFileValues {
+
+        public static String connectionString() {
+
+            return BungeeQ.configuration.getString("connection_string");
+        }
+    }
+
+    public static class Informable {
+
+        public static String permission() {
+
+            return "bungeeq.informable";
+        }
+    }
+
+    public static BaseComponent[] unlockList() {
+
+        return new ComponentBuilder(
+            "Es sind zurzeit "
+            + UnlockManager.getInstance().getUnlockQueue().size()
+            + " Gäste in der Warteschlange:\n"
+        )
+            .color(ChatColor.DARK_AQUA)
+            .append(
+                UnlockManager.getInstance()
+                    .getUnlockQueue()
+                    .stream()
+                    .map(
+                        (target) -> UnlockManager.getInstance().getPlayerNameFromUUID(target)
+                    )
+                    .collect(Collectors.joining(", "))
+            )
+            .color(ChatColor.AQUA)
+            .append("\n")
+            .append(
+                "Es laufen zurzeit "
+                + UnlockManager.getInstance().getUnlocks().size()
+                + " Freischaltungen:\n"
+            )
+            .color(ChatColor.DARK_AQUA)
+            .append(
+                UnlockManager.getInstance()
+                    .getUnlocks()
+                    .stream()
+                    .map((name) -> name.unlockListString())
+                    .collect(Collectors.joining("\n"))
+            )
+            .color(ChatColor.AQUA)
+            .create();
+    }
+}

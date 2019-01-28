@@ -1,0 +1,4 @@
+name: BungeeUnlock
+main: xyz.joestr.bungeeunlock.Main
+version: ${project.version}
+author: joestr
