@@ -288,13 +288,6 @@ public class UnlockSession {
             .getUserManager()
             .saveUser(user);
 
-        Logger
-            .getLogger(getClass().getName())
-            .log(
-                Level.SEVERE, "{0} has primary group {1}",
-                new Object[]{user.getName(), user.getPrimaryGroup()}
-            );
-
         this.end = LocalDateTime.now();
 
         this.status = UnlockStatus.SUCCESSFUL;
