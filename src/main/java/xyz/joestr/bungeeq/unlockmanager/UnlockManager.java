@@ -35,16 +35,16 @@ public class UnlockManager {
     static UnlockManager instance = null;
 
     // Holds the available unlockers
-    List<UUID> availableUnlockers = new ArrayList<>();
+    private List<UUID> availableUnlockers = new ArrayList<>();
 
     // Holds the players who want to get unlocked
-    Queue<UUID> unlockQueue = new LinkedList<>();
+    private Queue<UUID> unlockQueue = new LinkedList<>();
 
     // Holds the current runningUnlocks
-    List<UnlockSession> runningUnlocks = new ArrayList<>();
+    private List<UnlockSession> runningUnlocks = new ArrayList<>();
 
     // Holds a list of questions
-    List<String> questions = new ArrayList<>();
+    private List<String> questions = new ArrayList<>();
 
     DatabaseConnectionHandler databaseConnectionHandler = null;
 
@@ -95,6 +95,14 @@ public class UnlockManager {
         }
 
         return instance;
+    }
+
+    public List<UnlockSession> getRunningUnlocks() {
+        return runningUnlocks;
+    }
+
+    public List<String> getQuestions() {
+        return questions;
     }
 
     public void queuePlayer(UUID target) {
@@ -232,13 +240,8 @@ public class UnlockManager {
     }
 
     public Collection<UnlockEntry> getHistoryOf(String playerName) {
-        User user = LuckPerms.getApi().getUser(playerName);
 
-        if (user == null) {
-            return null;
-        }
-
-        return this.getHistoryOf(user.getUuid());
+        return this.getHistoryOf(this.getUUIDFromPlayerName(playerName));
     }
 
     public Collection<UnlockEntry> getHistoryOf(UUID targetUUID) {

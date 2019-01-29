@@ -82,14 +82,14 @@ public class UnlockSession {
 
         this.latesLogSenders.add(unlocker);
         this.latestLogMessages.add(
-            UnlockManager.getInstance().questions.get(questionId)
+            UnlockManager.getInstance().getQuestions().get(questionId)
         );
 
         BaseComponent[] transformedMessages
             = Configuration.transformForUnlockSession(
                 (sender != null
                     ? LuckPerms.getApi().getUser(sender).getName()
-                    : "BungeeUnlock"),
+                    : "BungeeQ"),
                 message
             );
 
@@ -131,7 +131,7 @@ public class UnlockSession {
 
     public void nextQuestion() {
 
-        if (this.questionId >= UnlockManager.getInstance().questions.size()) {
+        if (this.questionId >= UnlockManager.getInstance().getQuestions().size()) {
 
             ProxyServer.getInstance().getPlayer(unlocker)
                 .sendMessage(
@@ -146,12 +146,12 @@ public class UnlockSession {
 
         this.latesLogSenders.add(unlocker);
         this.latestLogMessages.add(
-            UnlockManager.getInstance().questions.get(questionId)
+            UnlockManager.getInstance().getQuestions().get(questionId)
         );
 
         this.sendMessageToTargetAndUnlocker(
             ProxyServer.getInstance().getPlayer(unlocker).getUniqueId(),
-            UnlockManager.getInstance().questions.get(questionId)
+            UnlockManager.getInstance().getQuestions().get(questionId)
         );
 
         this.questionId++;
@@ -161,12 +161,12 @@ public class UnlockSession {
 
         this.latesLogSenders.add(unlocker);
         this.latestLogMessages.add(
-            UnlockManager.getInstance().questions.get(questionId)
+            UnlockManager.getInstance().getQuestions().get(questionId)
         );
 
         this.sendMessageToTargetAndUnlocker(
             ProxyServer.getInstance().getPlayer(unlocker).getUniqueId(),
-            UnlockManager.getInstance().questions.get(questionId)
+            UnlockManager.getInstance().getQuestions().get(questionId)
         );
     }
 
