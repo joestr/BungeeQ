@@ -58,7 +58,7 @@ public class CommandQUnlock extends Command {
 
         if (unlock != null) {
 
-            unlock.finish(notice);
+            unlock.unlock(notice);
 
             CompletableFuture.runAsync(() -> {
                 UnlockManager.getInstance().deleteDeletableUnlocks();

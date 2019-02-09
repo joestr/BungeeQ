@@ -34,17 +34,6 @@ public class CommandQRepeat extends Command {
 
         ProxiedPlayer player = (ProxiedPlayer) commandSender;
 
-        if (!player.hasPermission(Configuration.Q.Repeat.permission())) {
-
-            player.sendMessage(
-                Configuration.proxiedPlayerLacksPermission(
-                    Configuration.Q.Repeat.permission()
-                )
-            );
-
-            return;
-        }
-
         if (strings.length == 0) {
 
             UnlockSession unlock

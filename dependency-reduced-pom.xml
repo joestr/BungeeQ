@@ -5,11 +5,70 @@
   <artifactId>bungeeq</artifactId>
   <name>BungeeQ</name>
   <version>0.1.0</version>
+  <description>Freischaltplugin für BungeeCord</description>
+  <url>https://git.joestr.xyz/joestr/BungeeQ</url>
+  <issueManagement>
+    <system>gitea</system>
+    <url>https://git.joestr.xyz/joestr/BungeeQ/issues</url>
+  </issueManagement>
+  <ciManagement>
+    <system>jenkins</system>
+    <url>https://ci.joestr.xyz</url>
+    <notifiers>
+      <notifier>
+        <type>email</type>
+        <sendOnSuccess>false</sendOnSuccess>
+        <address>strasser999@gmail.com</address>
+      </notifier>
+    </notifiers>
+  </ciManagement>
+  <inceptionYear>2019</inceptionYear>
+  <developers>
+    <developer>
+      <id>joestr</id>
+      <name>Joel Strasser</name>
+      <email>strasser999@gmail.com</email>
+      <url>https://joestr.xyz</url>
+      <organization>joestr</organization>
+      <organizationUrl>https://joestr.xyz</organizationUrl>
+      <roles>
+        <role>developer</role>
+      </roles>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <name>Joel Strasser</name>
+      <email>strasser999@gmail.com</email>
+      <url>https://joestr.xyz</url>
+      <organization>joestr</organization>
+      <organizationUrl>https://joestr.xyz</organizationUrl>
+      <roles>
+        <role>developer</role>
+      </roles>
+    </contributor>
+  </contributors>
+  <licenses>
+    <license>
+      <name>X11/MIT license</name>
+      <url>https://git.joestr.xyz/joestr/BungeeQ/LICENSE</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:git:https;//git.joestr.xyz/joestr/BungeeQ</connection>
+    <developerConnection>scm:git:https//git.joestr.xyz/joestr/BungeeQ</developerConnection>
+    <url>https//git.joestr.xyz/joestr/BungeeQ</url>
+  </scm>
+  <organization>
+    <name>joestr</name>
+    <url>https://joestr.xyz</url>
+  </organization>
   <build>
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>2.3</version>
+        <version>3.2.1</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -26,19 +85,31 @@
           </artifactSet>
         </configuration>
       </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.0</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <repositories>
     <repository>
+      <releases />
+      <snapshots />
       <id>joestr-repo</id>
-      <name>joestr's Repository</name>
+      <name>joestr Repository</name>
       <url>https://repo.joestr.xyz/maven/repository/repository/</url>
     </repository>
   </repositories>
   <pluginRepositories>
     <pluginRepository>
+      <releases />
+      <snapshots />
       <id>joestr-repo</id>
-      <name>joestr's Repository</name>
+      <name>joestr Repository</name>
       <url>https://repo.joestr.xyz/maven/repository/repository/</url>
     </pluginRepository>
   </pluginRepositories>
@@ -65,6 +136,10 @@
           <artifactId>bungeecord-protocol</artifactId>
           <groupId>net.md-5</groupId>
         </exclusion>
+        <exclusion>
+          <artifactId>guava</artifactId>
+          <groupId>com.google.guava</groupId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
@@ -73,18 +148,45 @@
       <version>4.3</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-shade-plugin</artifactId>
-      <version>3.2.1</version>
-      <type>maven-plugin</type>
-      <scope>compile</scope>
-    </dependency>
   </dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>net.md-5</groupId>
+        <artifactId>bungeecord-api</artifactId>
+        <version>1.13-SNAPSHOT</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>me.lucko.luckperms</groupId>
+        <artifactId>luckperms-api</artifactId>
+        <version>4.3</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>xyz.joestr</groupId>
+        <artifactId>dbwrapper</artifactId>
+        <version>0.1.2</version>
+        <scope>compile</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <distributionManagement>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>joestr-repo</id>
+      <name>joestr Repository</name>
+      <url>https://repo.joestr.xyz/maven/repository/repository/</url>
+    </repository>
+    <snapshotRepository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>joestr-repo</id>
+      <name>joestr Repository</name>
+      <url>https://repo.joestr.xyz/maven/repository/repository/</url>
+    </snapshotRepository>
+  </distributionManagement>
   <properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 </project>
-

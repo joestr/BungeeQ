@@ -6,11 +6,12 @@
 package xyz.joestr.bungeeq.configuration;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Collectors;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
-import xyz.joestr.bungeeq.BungeeQ;
+import xyz.joestr.bungeeq.BungeeQPlugin;
 import xyz.joestr.bungeeq.unlockmanager.UnlockManager;
 import xyz.joestr.bungeeq.unlockmanager.UnlockStatus;
 
@@ -257,6 +258,24 @@ public class Configuration {
         }
     }
 
+    public static class BungeeQ {
+
+        public static String command() {
+
+            return "bungeeq";
+        }
+
+        public static String permission() {
+
+            return "bungeeq.command.bungeeq";
+        }
+
+        public static String alias() {
+
+            return "bungeeq";
+        }
+    }
+
     public static String commandSenderIsNotAProxiedPlayer() {
 
         return "Only players can execute this command!";
@@ -329,9 +348,10 @@ public class Configuration {
             .create();
     }
 
+    @Deprecated
     public static String unlockGroup() {
 
-        return "player";
+        return ConfigurationFileValues.unlockGroup();
     }
 
     public static BaseComponent[] transformHistoryHead(String target) {
@@ -351,7 +371,7 @@ public class Configuration {
             .color(ChatColor.AQUA)
             .append("  ╠ Status: " + UnlockStatus.values()[status].name() + "\n")
             .color(ChatColor.AQUA)
-            .append("  ╚ Notiz: " + notice + "")
+            .append("  ╚ Notiz: " + notice)
             .color(ChatColor.AQUA)
             .create();
     }
@@ -360,7 +380,17 @@ public class Configuration {
 
         public static String connectionString() {
 
-            return BungeeQ.configuration.getString("connection_string");
+            return BungeeQPlugin.configuration.getString("connection_string");
+        }
+
+        public static List<String> quetions() {
+
+            return BungeeQPlugin.configuration.getStringList("questions");
+        }
+
+        public static String unlockGroup() {
+
+            return BungeeQPlugin.configuration.getString("unlock_group");
         }
     }
 

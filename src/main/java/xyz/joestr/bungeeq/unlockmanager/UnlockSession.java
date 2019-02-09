@@ -16,7 +16,6 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.lucko.luckperms.LuckPerms;
-import me.lucko.luckperms.api.Group;
 import me.lucko.luckperms.api.Node;
 import me.lucko.luckperms.api.User;
 import net.md_5.bungee.api.ProxyServer;
@@ -32,8 +31,12 @@ public class UnlockSession {
     // the target of this unlock
     UUID target;
 
+    String targetName;
+
     // the unlocker who finally unlock the target
     UUID unlocker;
+
+    String unlockerName;
 
     // Stores the id of the current question
     Integer questionId;
@@ -61,7 +64,9 @@ public class UnlockSession {
     public UnlockSession(UUID target, UUID unlocker, Integer questionId) {
 
         this.target = target;
+        this.targetName = ProxyServer.getInstance().getPlayer(target).getName();
         this.unlocker = unlocker;
+        this.unlockerName = ProxyServer.getInstance().getPlayer(unlocker).getName();
         this.questionId = questionId;
         this.messages = new HashMap<>();
         this.watchers = new HashSet<>();
@@ -82,13 +87,13 @@ public class UnlockSession {
 
         this.latesLogSenders.add(unlocker);
         this.latestLogMessages.add(
-            UnlockManager.getInstance().getQuestions().get(questionId)
+            message
         );
 
         BaseComponent[] transformedMessages
             = Configuration.transformForUnlockSession(
                 (sender != null
-                    ? LuckPerms.getApi().getUser(sender).getName()
+                    ? (sender.equals(target) ? targetName : unlockerName)
                     : "BungeeQ"),
                 message
             );
@@ -139,15 +144,12 @@ public class UnlockSession {
                         "Es keine weiteren Fragen verfügbar!"
                     )
                 );
+
+            return;
         }
 
         this.latesLogSenders.clear();
         this.latestLogMessages.clear();
-
-        this.latesLogSenders.add(unlocker);
-        this.latestLogMessages.add(
-            UnlockManager.getInstance().getQuestions().get(questionId)
-        );
 
         this.sendMessageToTargetAndUnlocker(
             ProxyServer.getInstance().getPlayer(unlocker).getUniqueId(),
@@ -159,14 +161,9 @@ public class UnlockSession {
 
     public void repeatQuestion() {
 
-        this.latesLogSenders.add(unlocker);
-        this.latestLogMessages.add(
-            UnlockManager.getInstance().getQuestions().get(questionId)
-        );
-
         this.sendMessageToTargetAndUnlocker(
             ProxyServer.getInstance().getPlayer(unlocker).getUniqueId(),
-            UnlockManager.getInstance().getQuestions().get(questionId)
+            UnlockManager.getInstance().getQuestions().get(questionId - 1)
         );
     }
 
@@ -182,9 +179,9 @@ public class UnlockSession {
             .informUnlockers(
                 Configuration.transformForUnlockers(
                     "Die Freischaltung von "
-                    + LuckPerms.getApi().getUser(target).getName()
+                    + targetName
                     + " wurde von "
-                    + (asTarget ? LuckPerms.getApi().getUser(target).getName() : LuckPerms.getApi().getUser(unlocker).getName())
+                    + (asTarget ? targetName : unlockerName)
                     + " abgebrochen!"
                 )
             );
@@ -194,6 +191,8 @@ public class UnlockSession {
         this.status = UnlockStatus.CANCELLED;
 
         this.deletable = true;
+
+        UnlockManager.getInstance().deleteDeletableUnlocks();
     }
 
     public void exit(Boolean asTarget, String notice) {
@@ -215,9 +214,9 @@ public class UnlockSession {
             .informUnlockers(
                 Configuration.transformForUnlockers(
                     "Die Freischaltung von "
-                    + LuckPerms.getApi().getUser(target).getName()
+                    + targetName
                     + " wurde von "
-                    + LuckPerms.getApi().getUser(unlocker).getName()
+                    + unlockerName
                     + " abgelehnt!"
                 )
             );
@@ -227,6 +226,8 @@ public class UnlockSession {
         this.status = UnlockStatus.DECLINED;
 
         this.deletable = true;
+
+        UnlockManager.getInstance().deleteDeletableUnlocks();
     }
 
     public void decline(String notice) {
@@ -234,11 +235,9 @@ public class UnlockSession {
         this.notice = notice;
 
         this.decline();
-
-        UnlockManager.getInstance().deleteDeletableUnlocks();
     }
 
-    public void finish() {
+    public void unlock() {
 
         this.sendMessageToTargetAndUnlocker(
             null,
@@ -250,9 +249,9 @@ public class UnlockSession {
             .informUnlockers(
                 Configuration.transformForUnlockers(
                     "Die Freischaltung von "
-                    + LuckPerms.getApi().getUser(target).getName()
+                    + targetName
                     + " wurde von "
-                    + LuckPerms.getApi().getUser(unlocker).getName()
+                    + unlockerName
                     + " angenommen!"
                 )
             );
@@ -266,7 +265,7 @@ public class UnlockSession {
             .getLogger(getClass().getName())
             .log(
                 Level.SEVERE, "{0} has primary group {1}",
-                new Object[]{user.getName(), user.getPrimaryGroup()}
+                new Object[]{user.getFriendlyName(), user.getPrimaryGroup()}
             );
 
         user.clearParents();
@@ -293,13 +292,15 @@ public class UnlockSession {
         this.status = UnlockStatus.SUCCESSFUL;
 
         this.deletable = true;
+
+        UnlockManager.getInstance().deleteDeletableUnlocks();
     }
 
-    public void finish(String notice) {
+    public void unlock(String notice) {
 
         this.notice = notice;
 
-        this.finish();
+        this.unlock();
     }
 
     public UUID getTarget() {
@@ -323,12 +324,8 @@ public class UnlockSession {
     @Deprecated
     public String unlockListString() {
 
-        return LuckPerms.getApi()
-            .getUser(target)
-            .getName()
+        return targetName
             + " -> "
-            + LuckPerms.getApi()
-                .getUser(unlocker)
-                .getName();
+            + unlockerName;
     }
 }

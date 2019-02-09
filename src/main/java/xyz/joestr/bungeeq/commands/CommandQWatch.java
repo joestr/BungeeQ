@@ -6,6 +6,7 @@
 package xyz.joestr.bungeeq.commands;
 
 import me.lucko.luckperms.LuckPerms;
+import me.lucko.luckperms.api.User;
 import xyz.joestr.bungeeq.configuration.Configuration;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -45,7 +46,7 @@ public class CommandQWatch extends Command {
             if (unlockSession == null) {
 
                 player.sendMessage(
-                    Configuration.transformForUnlockers(
+                    Configuration.transformForUnlocker(
                         "Du beobachtest zurzeit keine Freischaltung!"
                     )
                 );
@@ -56,7 +57,7 @@ public class CommandQWatch extends Command {
             unlockSession.removeWatcher(player.getUniqueId());
 
             player.sendMessage(
-                Configuration.transformForUnlockers(
+                Configuration.transformForUnlocker(
                     "Du beobachtest die Freischaltung nicht mehr!"
                 )
             );
@@ -66,20 +67,34 @@ public class CommandQWatch extends Command {
 
         if (strings.length == 1) {
 
+            User user
+                = LuckPerms
+                    .getApi()
+                    .getUser(strings[0]);
+
+            if (user == null) {
+
+                player.sendMessage(
+                    Configuration.transformForUnlocker(
+                        "Diese Freischaltung kann nicht beobachtet werden!"
+                    )
+                );
+
+                return;
+            }
+
             UnlockSession unlockSession
                 = UnlockManager
                     .getInstance()
                     .getUnlockByTarget(
-                        LuckPerms
-                            .getApi()
-                            .getUser(strings[0])
+                        user
                             .getUuid()
                     );
 
             if (unlockSession == null) {
 
                 player.sendMessage(
-                    Configuration.transformForUnlockers(
+                    Configuration.transformForUnlocker(
                         "Diese Freischaltung kann nicht beobachtet werden!"
                     )
                 );
@@ -90,7 +105,7 @@ public class CommandQWatch extends Command {
             unlockSession.addWatcher(player.getUniqueId());
 
             player.sendMessage(
-                Configuration.transformForUnlockers(
+                Configuration.transformForUnlocker(
                     "Du beobachtest nun die Freischaltung!"
                 )
             );

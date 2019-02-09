@@ -66,10 +66,6 @@ public class CommandQDecline extends Command {
 
                 unlock.decline(notice);
 
-                CompletableFuture.runAsync(() -> {
-                    UnlockManager.getInstance().deleteDeletableUnlocks();
-                });
-
                 return;
             }
 

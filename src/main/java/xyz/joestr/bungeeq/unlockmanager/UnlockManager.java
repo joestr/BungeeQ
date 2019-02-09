@@ -17,7 +17,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.lucko.luckperms.LuckPerms;
-import me.lucko.luckperms.api.User;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -66,20 +65,7 @@ public class UnlockManager {
             Logger.getLogger(UnlockManager.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        this.questions.addAll(
-            Arrays.asList(
-                "Hallo Gast, ein Freischalter stellt dir jetzt Fragen. Du brauchst einfach nur in den Chat schreiben. Du kannst jederzeit die Freischaltung mit /unlockexit abbrechen.",
-                "Warum sind die in den Regeln gennanten Mods verboten?",
-                "Nenne einige Dinge die nicht im Serverchat stehen sollen.",
-                "Wie führst du Privatgespärche?",
-                "Nenne drei Dinge die nicht gebaut werden dürfen.",
-                "Wie kann man eine Zone erstellen.?",
-                "Was hilft dir beim Erstellen einer Zone?",
-                "Welche zwei Orte stehen extra zur Rohstoffbeschaffung zur Verfügung?",
-                "Was machst du wen du einen Bug entdeckst?",
-                "Dann schalte ich dich nun frei! Viel Spaß!"
-            )
-        );
+        this.questions = Configuration.ConfigurationFileValues.quetions();
     }
 
     /**
@@ -106,6 +92,19 @@ public class UnlockManager {
     }
 
     public void queuePlayer(UUID target) {
+
+        if (this.getUnlockByTarget(target) != null) {
+            ProxyServer
+                .getInstance()
+                .getPlayer(target)
+                .sendMessage(
+                    Configuration.transformForTarget(
+                        "Du bist zurzeit in einer Freischaltung!"
+                    )
+                );
+
+            return;
+        }
 
         if (this.unlockQueue.contains(target)) {
 
@@ -310,5 +309,9 @@ public class UnlockManager {
         }
 
         return result;
+    }
+
+    public void reloadQuestions() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

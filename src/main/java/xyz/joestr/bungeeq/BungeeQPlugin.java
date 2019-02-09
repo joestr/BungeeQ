@@ -15,6 +15,7 @@ import xyz.joestr.bungeeq.commands.CommandActivate;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
+import xyz.joestr.bungeeq.commands.CommandBungeeQ;
 import xyz.joestr.bungeeq.commands.CommandExit;
 import xyz.joestr.bungeeq.commands.CommandQAsk;
 import xyz.joestr.bungeeq.commands.CommandQChat;
@@ -35,16 +36,18 @@ import xyz.joestr.bungeeq.listeners.PlayerLeave;
  *
  * @author Joel
  */
-public class BungeeQ extends Plugin {
+public class BungeeQPlugin extends Plugin {
 
     public static net.md_5.bungee.config.Configuration configuration;
+    public static File configurationFile;
 
     //public static configuration;
     @Override
     public void onEnable() {
 
-        File configurationFile = new File(getDataFolder(), "config.yml");
         boolean successfullyLoaded = false;
+
+        configurationFile = new File(getDataFolder(), "config.yml");
 
         // Check if the configuration file exists
         if (configurationFile.exists()) {
@@ -56,7 +59,7 @@ public class BungeeQ extends Plugin {
                         .load(configurationFile);
                 successfullyLoaded = true;
             } catch (IOException ex) {
-                Logger.getLogger(BungeeQ.class.getName())
+                Logger.getLogger(BungeeQPlugin.class.getName())
                     .log(Level.SEVERE, null, ex);
             }
         } else {
@@ -71,7 +74,7 @@ public class BungeeQ extends Plugin {
                 try (InputStream in = getResourceAsStream("config.yml")) {
                     Files.copy(in, file.toPath());
                 } catch (IOException ex) {
-                    Logger.getLogger(BungeeQ.class.getName())
+                    Logger.getLogger(BungeeQPlugin.class.getName())
                         .log(Level.SEVERE, null, ex);
                 }
             }
@@ -163,6 +166,13 @@ public class BungeeQ extends Plugin {
                 Configuration.Q.List.command(),
                 Configuration.Q.List.permission(),
                 Configuration.Q.List.alias()
+            )
+        );
+        this.getProxy().getPluginManager().registerCommand(this,
+            new CommandBungeeQ(
+                Configuration.BungeeQ.command(),
+                Configuration.BungeeQ.permission(),
+                Configuration.BungeeQ.alias()
             )
         );
         this.getProxy().getPluginManager().registerListener(this,

@@ -1,82 +1,241 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>xyz.joestr</groupId>
-    <artifactId>bungeeq</artifactId>
-    <version>0.1.0</version>
-    <packaging>jar</packaging>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+    
+    <groupId>xyz.joestr</groupId>
+    <artifactId>bungeeq</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    
+    <name>BungeeQ</name>
+    <url>https://git.joestr.xyz/joestr/BungeeQ</url>
+    <description>Freischaltplugin für BungeeCord</description>
+    <inceptionYear>2019</inceptionYear>
+    
+    <organization>
+        <name>joestr</name>
+        <url>https://joestr.xyz</url>
+    </organization>
+    
+    <licenses>
+        <license>
+            <name>X11/MIT license</name>
+            <distribution>repo</distribution>
+            <url>https://git.joestr.xyz/joestr/BungeeQ/LICENSE</url>
+            <!--<comments></comments>-->
+        </license>
+    </licenses>
+    
+    <developers>
+        <developer>
+            <id>joestr</id>
+            <name>Joel Strasser</name>
+            <email>strasser999@gmail.com</email>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <url>https://joestr.xyz</url>
+            <organization>joestr</organization>
+            <organizationUrl>https://joestr.xyz</organizationUrl>
+        </developer>
+    </developers>
+    
+    <contributors>
+        <contributor>
+            <name>Joel Strasser</name>
+            <email>strasser999@gmail.com</email>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <url>https://joestr.xyz</url>
+            <organization>joestr</organization>
+            <organizationUrl>https://joestr.xyz</organizationUrl>
+        </contributor>
+    </contributors>
+    
+    <scm>
+        <connection>scm:git:https://git.joestr.xyz/joestr/BungeeQ</connection>
+        <developerConnection>scm:git:https://git.joestr.xyz/joestr/BungeeQ</developerConnection>
+        <tag>HEAD</tag>
+        <url>https//git.joestr.xyz/joestr/BungeeQ</url>
+    </scm>
+    
+    <ciManagement>
+        <system>jenkins</system>
+        <url>https://ci.joestr.xyz</url>
+        <notifiers>
+            <notifier>
+                <type>email</type>
+                <address>strasser999@gmail.com</address>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnWarning>true</sendOnWarning>
+                <sendOnSuccess>false</sendOnSuccess>
+            </notifier>
+        </notifiers>
+    </ciManagement>
+    
+    <distributionManagement>
+        <repository>
+            <id>joestr-repo</id>
+            <name>joestr Repository</name>
+            <url>https://repo.joestr.xyz/maven/repository/repository/</url>
+            <uniqueVersion>false</uniqueVersion>
+        </repository>
+        <snapshotRepository>
+            <id>joestr-repo</id>
+            <name>joestr Repository</name>
+            <url>https://repo.joestr.xyz/maven/repository/repository/</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+    
+    <issueManagement>
+        <system>gitea</system>
+        <url>https://git.joestr.xyz/joestr/BungeeQ/issues</url>
+    </issueManagement>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>net.md-5</groupId>
+                <artifactId>bungeecord-api</artifactId>
+                <version>1.13-SNAPSHOT</version>
+                <type>jar</type>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>me.lucko.luckperms</groupId>
+                <artifactId>luckperms-api</artifactId>
+                <version>4.3</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>xyz.joestr</groupId>
+                <artifactId>dbwrapper</artifactId>
+                <version>0.1.2</version>
+                <type>jar</type>
+                <scope>compile</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
     <repositories>
         <repository>
             <id>joestr-repo</id>
-            <name>joestr's Repository</name>
+            <name>joestr Repository</name>
             <url>https://repo.joestr.xyz/maven/repository/repository/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>joestr-repo</id>
-            <name>joestr's Repository</name>
-            <url>https://repo.joestr.xyz/maven/repository/repository/</url>
-        </pluginRepository>
-    </pluginRepositories>
+    
     <dependencies>
         <dependency>
             <groupId>net.md-5</groupId>
             <artifactId>bungeecord-api</artifactId>
-            <version>1.13-SNAPSHOT</version>
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>me.lucko.luckperms</groupId>
             <artifactId>luckperms-api</artifactId>
-            <version>4.3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>xyz.joestr</groupId>
             <artifactId>dbwrapper</artifactId>
-            <version>0.1.2</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-shade-plugin</artifactId>
-            <version>3.2.1</version>
-            <type>maven-plugin</type>
-        </dependency>
     </dependencies>
-    <name>BungeeQ</name>
+    
+    <pluginRepositories>
+        <pluginRepository>
+            <id>joestr-repo</id>
+            <name>joestr Repository</name>
+            <url>https://repo.joestr.xyz/maven/repository/repository/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+    
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
-                    <artifactSet>
-                        <includes>
-                            <include>xyz.joestr:dbwrapper</include>
-                        </includes>
-                        <!--<excludes>
-                            <exclude>*:*</exclude>
-                        </excludes>-->
-                    </artifactSet>
-                </configuration>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
                         <goals>
                             <goal>shade</goal>
                         </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>xyz.joestr:dbwrapper</include>
+                                </includes>
+                                <!--<excludes>
+                                    <exclude>*:*</exclude>
+                                </excludes>-->
+                            </artifactSet>
+                            <outputFile>./target/${project.artifactId}-${project.version}-shaded.jar</outputFile>
+                        </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <doclint>none</doclint>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>

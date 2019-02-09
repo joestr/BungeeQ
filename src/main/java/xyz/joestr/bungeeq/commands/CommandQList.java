@@ -36,6 +36,15 @@ public class CommandQList extends Command {
 
         if (strings.length == 0) {
 
+            player.sendMessage(
+                Configuration.unlockList()
+            );
         }
+
+        player.sendMessage(
+            Configuration.usage(
+                Configuration.Q.List.command()
+            )
+        );
     }
 }

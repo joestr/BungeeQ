@@ -79,7 +79,7 @@ public class CommandQHistory extends Command {
                         Configuration.transformHistoryBody(
                             LuckPerms.getApi()
                                 .getUser(UUID.fromString(unlock.getUnlocker()))
-                                .getName(),
+                                .getFriendlyName(),
                             unlock.getStart(),
                             unlock.getEnd(),
                             unlock.getStatus(),
