@@ -6,6 +6,9 @@
 package xyz.joestr.bungeeq.configuration;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 import net.md_5.bungee.api.ChatColor;
@@ -312,7 +315,7 @@ public class Configuration {
                 .create();
         }
 
-        return new ComponentBuilder("[U] ")
+        return new ComponentBuilder("[Q] ")
             .color(ChatColor.DARK_AQUA)
             .append(message)
             .color(ChatColor.AQUA)
@@ -356,23 +359,67 @@ public class Configuration {
 
     public static BaseComponent[] transformHistoryHead(String target) {
 
-        return new ComponentBuilder("Freischaltgeschichte von " + target + ":")
+        return new ComponentBuilder("Freischaltgeschichte von ")
+            .color(ChatColor.DARK_AQUA)
+            .append(target)
+            .color(ChatColor.GRAY)
+            .append(":")
             .color(ChatColor.DARK_AQUA)
             .create();
     }
 
     public static BaseComponent[] transformHistoryBody(String unlocker, LocalDateTime start, LocalDateTime end, Integer status, String notice) {
 
-        return new ComponentBuilder(" ╚ Freischaltung bei " + unlocker + "\n")
+        BaseComponent[] statusComponents = null;
+
+        switch (UnlockStatus.values()[status]) {
+            case RUNNING:
+                statusComponents = new ComponentBuilder("Laufend")
+                    .color(ChatColor.GRAY)
+                    .create();
+                break;
+            case SUCCESSFUL:
+                statusComponents = new ComponentBuilder("Erfolgreich")
+                    .color(ChatColor.DARK_GREEN)
+                    .create();
+                break;
+            case DECLINED:
+                statusComponents = new ComponentBuilder("Abgelehnt")
+                    .color(ChatColor.DARK_RED)
+                    .create();
+                break;
+            case CANCELLED:
+                statusComponents = new ComponentBuilder("Abgebrochen")
+                    .color(ChatColor.GOLD)
+                    .create();
+                break;
+            default:
+                statusComponents = new ComponentBuilder("Unbekannt")
+                    .color(ChatColor.GRAY)
+                    .create();
+                break;
+        }
+
+        return new ComponentBuilder(" ╔ Freischaltung bei ")
             .color(ChatColor.AQUA)
-            .append("  ╠ Start um " + start.toString() + "\n")
+            .append(" ╠ Startzeitpunkt: ")
             .color(ChatColor.AQUA)
-            .append("  ╠ Ende um " + end.toString() + "\n")
+            .append(start.format(DateTimeFormatter.RFC_1123_DATE_TIME))
+            .color(ChatColor.GRAY)
+            .append("\n")
+            .append(" ╠ EndZeitpunkt: ")
             .color(ChatColor.AQUA)
-            .append("  ╠ Status: " + UnlockStatus.values()[status].name() + "\n")
+            .append(end.format(DateTimeFormatter.RFC_1123_DATE_TIME))
+            .color(ChatColor.GRAY)
+            .append("\n")
+            .append(" ╠ Status: ")
             .color(ChatColor.AQUA)
-            .append("  ╚ Notiz: " + notice)
+            .append(statusComponents)
+            .append("\n")
+            .append(" ╚ Notiz: ")
             .color(ChatColor.AQUA)
+            .append(notice)
+            .color(ChatColor.GRAY)
             .create();
     }
 
@@ -406,9 +453,11 @@ public class Configuration {
 
         return new ComponentBuilder(
             "Es sind zurzeit "
-            + UnlockManager.getInstance().getUnlockQueue().size()
-            + " Gäste in der Warteschlange:\n"
         )
+            .color(ChatColor.DARK_AQUA)
+            .append(String.valueOf(UnlockManager.getInstance().getUnlockQueue().size()))
+            .color(ChatColor.GRAY)
+            .append(" Gäste in der Warteschlange:\n")
             .color(ChatColor.DARK_AQUA)
             .append(
                 UnlockManager.getInstance()
@@ -417,15 +466,17 @@ public class Configuration {
                     .map(
                         (target) -> UnlockManager.getInstance().getPlayerNameFromUUID(target)
                     )
-                    .collect(Collectors.joining(", "))
+                    .collect(Collectors.joining(", ", "", ""))
             )
             .color(ChatColor.AQUA)
             .append("\n")
             .append(
                 "Es laufen zurzeit "
-                + UnlockManager.getInstance().getUnlocks().size()
-                + " Freischaltungen:\n"
             )
+            .color(ChatColor.DARK_AQUA)
+            .append(UnlockManager.getInstance().getUnlocks().size() + "")
+            .color(ChatColor.GRAY)
+            .append(" Freischaltungen:\n")
             .color(ChatColor.DARK_AQUA)
             .append(
                 UnlockManager.getInstance()

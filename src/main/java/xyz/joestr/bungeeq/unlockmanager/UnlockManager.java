@@ -20,6 +20,7 @@ import me.lucko.luckperms.LuckPerms;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.protocol.DefinedPacket;
 import xyz.joestr.bungeeq.configuration.Configuration;
 import xyz.joestr.dbwrapper.DatabaseConnectionHandler;
 import xyz.joestr.dbwrapper.DatabaseWrapper;
@@ -183,6 +184,7 @@ public class UnlockManager {
         this.availableUnlockers.forEach((availableUnlocker) -> {
 
             if (ProxyServer.getInstance().getPlayer(availableUnlocker) != null) {
+
                 ProxyServer
                     .getInstance()
                     .getPlayer(availableUnlocker)
