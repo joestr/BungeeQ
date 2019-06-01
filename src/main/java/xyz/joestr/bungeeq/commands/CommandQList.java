@@ -39,6 +39,7 @@ public class CommandQList extends Command {
             player.sendMessage(
                 Configuration.unlockList()
             );
+            return;
         }
 
         player.sendMessage(
