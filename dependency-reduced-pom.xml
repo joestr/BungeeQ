@@ -4,7 +4,7 @@
   <groupId>xyz.joestr</groupId>
   <artifactId>bungeeq</artifactId>
   <name>BungeeQ</name>
-  <version>0.1.0</version>
+  <version>0.1.0-SNAPSHOT</version>
   <description>Freischaltplugin für BungeeCord</description>
   <url>https://git.joestr.xyz/joestr/BungeeQ</url>
   <issueManagement>
@@ -56,8 +56,8 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:git:https;//git.joestr.xyz/joestr/BungeeQ</connection>
-    <developerConnection>scm:git:https//git.joestr.xyz/joestr/BungeeQ</developerConnection>
+    <connection>scm:git:https://git.joestr.xyz/joestr/BungeeQ</connection>
+    <developerConnection>scm:git:https://git.joestr.xyz/joestr/BungeeQ</developerConnection>
     <url>https//git.joestr.xyz/joestr/BungeeQ</url>
   </scm>
   <organization>
@@ -75,15 +75,16 @@
             <goals>
               <goal>shade</goal>
             </goals>
+            <configuration>
+              <artifactSet>
+                <includes>
+                  <include>xyz.joestr:dbwrapper</include>
+                </includes>
+              </artifactSet>
+              <shadedClassifierName>shaded</shadedClassifierName>
+            </configuration>
           </execution>
         </executions>
-        <configuration>
-          <artifactSet>
-            <includes>
-              <include>xyz.joestr:dbwrapper</include>
-            </includes>
-          </artifactSet>
-        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -186,7 +187,7 @@
     </snapshotRepository>
   </distributionManagement>
   <properties>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
 </project>

@@ -105,7 +105,7 @@
             <dependency>
                 <groupId>net.md-5</groupId>
                 <artifactId>bungeecord-api</artifactId>
-                <version>1.13-SNAPSHOT</version>
+                <version>1.14-SNAPSHOT</version>
                 <type>jar</type>
                 <scope>provided</scope>
             </dependency>
@@ -177,6 +177,19 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.2.1</version>
                 <executions>
@@ -194,15 +207,22 @@
                                     <exclude>*:*</exclude>
                                 </excludes>-->
                             </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <pattern>xyz.joestr.dbwrapper</pattern>
+                                    <shadedPattern>xyz.joestr.bungeeq.thirdparty.xyz.joestr.dbwrapper</shadedPattern>
+                                </relocation>
+                            </relocations>
                             <shadedClassifierName>shaded</shadedClassifierName>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-            <!--<plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.1.1</version>
                 <configuration>
                     <doclint>none</doclint>
                 </configuration>
@@ -215,19 +235,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

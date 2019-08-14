@@ -169,13 +169,13 @@ public class UnlockManager {
     public UnlockSession getUnlockByUnlocker(UUID unlocker) {
 
         return this.runningUnlocks.stream().filter((unlock) -> {
-            return unlock.unlocker == unlocker;
+            return unlock.unlocker.equals(unlocker);
         }).findFirst().orElse(null);
     }
 
     public UnlockSession getUnlockByTarget(UUID target) {
         return this.runningUnlocks.stream().filter((unlock) -> {
-            return unlock.target == target;
+            return unlock.target.equals(target);
         }).findFirst().orElse(null);
     }
 
