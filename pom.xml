@@ -194,7 +194,7 @@
                                     <exclude>*:*</exclude>
                                 </excludes>-->
                             </artifactSet>
-                            <outputFile>./target/${project.artifactId}-${project.version}-shaded.jar</outputFile>
+                            <shadedClassifierName>shaded</shadedClassifierName>
                         </configuration>
                     </execution>
                 </executions>
