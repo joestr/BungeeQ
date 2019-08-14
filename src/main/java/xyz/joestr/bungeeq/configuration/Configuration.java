@@ -8,6 +8,7 @@ package xyz.joestr.bungeeq.configuration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -402,14 +403,17 @@ public class Configuration {
 
         return new ComponentBuilder(" ╔ Freischaltung bei ")
             .color(ChatColor.AQUA)
-            .append(" ╠ Startzeitpunkt: ")
-            .color(ChatColor.AQUA)
-            .append(start.format(DateTimeFormatter.RFC_1123_DATE_TIME))
+            .append(unlocker)
             .color(ChatColor.GRAY)
             .append("\n")
-            .append(" ╠ EndZeitpunkt: ")
+            .append(" ╠ Startzeitpunkt: ")
             .color(ChatColor.AQUA)
-            .append(end.format(DateTimeFormatter.RFC_1123_DATE_TIME))
+            .append(start.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
+            .color(ChatColor.GRAY)
+            .append("\n")
+            .append(" ╠ Endzeitpunkt: ")
+            .color(ChatColor.AQUA)
+            .append(end.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
             .color(ChatColor.GRAY)
             .append("\n")
             .append(" ╠ Status: ")

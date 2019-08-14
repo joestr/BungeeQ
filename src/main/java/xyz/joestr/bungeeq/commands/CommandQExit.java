@@ -53,7 +53,7 @@ public class CommandQExit extends Command {
 
             if (unlock != null) {
 
-                unlock.decline(notice);
+                unlock.exit(false, notice);
 
                 CompletableFuture.runAsync(() -> {
                     UnlockManager.getInstance().deleteDeletableUnlocks();

@@ -73,8 +73,8 @@ public class CommandQHistory extends Command {
                     Configuration.transformHistoryHead(strings[0])
                 );
 
-                unlockHistory.forEach((unlock) -> {
-
+                for(UnlockEntry unlock : unlockHistory) {
+                    
                     player.sendMessage(
                         Configuration.transformHistoryBody(
                             LuckPerms.getApi()
@@ -86,7 +86,7 @@ public class CommandQHistory extends Command {
                             unlock.getNotice()
                         )
                     );
-                });
+                }
             });
 
             return;
