@@ -24,7 +24,7 @@
     
     <licenses>
         <license>
-            <name>X11/MIT license</name>
+            <name>MIT license</name>
             <distribution>repo</distribution>
             <url>https://git.joestr.xyz/joestr/BungeeQ/LICENSE</url>
             <!--<comments></comments>-->
