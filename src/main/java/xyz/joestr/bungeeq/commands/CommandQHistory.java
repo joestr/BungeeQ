@@ -75,17 +75,21 @@ public class CommandQHistory extends Command {
 
                 for(UnlockEntry unlock : unlockHistory) {
                     
-                    player.sendMessage(
-                        Configuration.transformHistoryBody(
-                            LuckPerms.getApi()
-                                .getUser(UUID.fromString(unlock.getUnlocker()))
-                                .getFriendlyName(),
-                            unlock.getStart(),
-                            unlock.getEnd(),
-                            unlock.getStatus(),
-                            unlock.getNotice()
-                        )
-                    );
+                    LuckPerms.getApi()
+                        .getUserManager()
+                        .lookupUsername(UUID.fromString(unlock.getUnlocker()))
+                        .whenComplete((name, throwable) -> {
+                           
+                            player.sendMessage(
+                                Configuration.transformHistoryBody(
+                                    throwable == null ? name : unlock.getUnlocker(),
+                                    unlock.getStart(),
+                                    unlock.getEnd(),
+                                    unlock.getStatus(),
+                                    unlock.getNotice()
+                            )
+                        );        
+                    });
                 }
             });
 
