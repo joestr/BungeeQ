@@ -94,7 +94,7 @@
     </distributionManagement>
     
     <issueManagement>
-        <system>gitea</system>
+        <system>github</system>
         <url>https://github.com/joestr/BungeeQ/issues</url>
     </issueManagement>
     
@@ -125,9 +125,8 @@
     
     <repositories>
         <repository>
-            <id>joestr-repo</id>
-            <name>joestr Repository</name>
-            <url>https://mvn-repo.joestr.xyz/repository/repository/</url>
+            <id>public-maven-repository</id>
+            <url>https://mvn-repo.joestr.xyz/repository/public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -159,9 +158,8 @@
     
     <pluginRepositories>
         <pluginRepository>
-            <id>joestr-maven-repo</id>
-            <name>joestr's Maven Repository</name>
-            <url>https://mvn-repo.joestr.xyz/repository/repository/</url>
+            <id>public-maven-repository</id>
+            <url>https://mvn-repo.joestr.xyz/repository/public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
