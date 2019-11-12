@@ -8,6 +8,7 @@ package xyz.joestr.bungeeq.commands;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
+import me.lucko.luckperms.LuckPerms;
 import xyz.joestr.bungeeq.configuration.Configuration;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -63,6 +64,8 @@ public class CommandQUnlock extends Command {
             CompletableFuture.runAsync(() -> {
                 UnlockManager.getInstance().deleteDeletableUnlocks();
             });
+            
+            LuckPerms.getApi().runUpdateTask();
 
             return;
         }
