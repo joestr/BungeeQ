@@ -8,6 +8,7 @@ package xyz.joestr.bungeeq.commands;
 import me.lucko.luckperms.LuckPerms;
 import xyz.joestr.bungeeq.configuration.Configuration;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 import xyz.joestr.bungeeq.unlockmanager.UnlockManager;
@@ -62,11 +63,27 @@ public class CommandQGet extends Command {
                         "Du schaltest nun jemanden frei!"
                     )
                 );
-
-                UnlockManager
+                
+                UnlockSession unlockSession = UnlockManager
                     .getInstance()
-                    .getUnlockByUnlocker(player.getUniqueId())
-                    .nextQuestion();
+                    .getUnlockByUnlocker(player.getUniqueId());
+                
+                ProxiedPlayer targetPlayer = 
+                    ProxyServer.getInstance().getPlayer(
+                        unlockSession.getTarget()
+                    );
+                
+                player.sendMessage(
+                    Configuration.transformForUnlocker(
+                        targetPlayer.getName()
+                    )
+                );
+                
+                player.sendMessage(
+                    Configuration.transformModList(targetPlayer.getModList())
+                );
+                
+                unlockSession.nextQuestion();
 
                 return;
             }

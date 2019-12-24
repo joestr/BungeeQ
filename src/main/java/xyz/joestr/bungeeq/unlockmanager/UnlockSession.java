@@ -237,8 +237,19 @@ public class UnlockSession {
         this.decline();
     }
 
-    public void unlock() {
+    public boolean unlock() {
 
+        if(this.questionId < UnlockManager.getInstance().getQuestions().size()) {
+            ProxyServer.getInstance().getPlayer(unlocker)
+                .sendMessage(
+                    Configuration.transformForUnlocker(
+                        "Du musst zuerst alle Fragen stellen!"
+                    )
+                );
+
+            return false;
+        }
+        
         this.sendMessageToTargetAndUnlocker(
             null,
             "Die Freischaltung wurde angenommen!"
@@ -294,13 +305,15 @@ public class UnlockSession {
         this.deletable = true;
 
         UnlockManager.getInstance().deleteDeletableUnlocks();
+        
+        return true;
     }
 
-    public void unlock(String notice) {
+    public boolean unlock(String notice) {
 
         this.notice = notice;
 
-        this.unlock();
+        return this.unlock();
     }
 
     public UUID getTarget() {

@@ -11,6 +11,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -491,5 +492,24 @@ public class Configuration {
             )
             .color(ChatColor.AQUA)
             .create();
+    }
+    
+    public static BaseComponent[] transformModList(Map<String, String> modList) {
+        
+        ComponentBuilder result = new ComponentBuilder(
+            ""
+        );
+        
+        modList.forEach((mod, version) -> {
+            
+            result.append(mod);
+            result.color(ChatColor.AQUA);
+            result.append("("+ version + ")");
+            result.color(ChatColor.GRAY);
+            result.append(", ");
+            result.color(ChatColor.DARK_AQUA);
+        });
+        
+        return result.create();
     }
 }
