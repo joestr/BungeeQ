@@ -31,6 +31,7 @@ import xyz.joestr.bungeeq.configuration.Configuration;
 import xyz.joestr.bungeeq.listeners.PlayerChat;
 import xyz.joestr.bungeeq.listeners.PlayerJoin;
 import xyz.joestr.bungeeq.listeners.PlayerLeave;
+import xyz.joestr.bungeeq.listeners.TabComplete;
 
 /**
  *
@@ -183,6 +184,9 @@ public class BungeeQPlugin extends Plugin {
         );
         this.getProxy().getPluginManager().registerListener(this,
             new PlayerLeave()
+        );
+        this.getProxy().getPluginManager().registerListener(this,
+            new TabComplete(this)
         );
     }
 }
