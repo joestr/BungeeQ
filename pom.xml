@@ -1,36 +1,69 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd"
+>
     <modelVersion>4.0.0</modelVersion>
-    
+
+    <!-- Properties -->
     <properties>
+        <!-- BungeeQ version -->
+        <bungeeq.version>0.4.0-SNAPSHOT</bungeeq.version>
+        <!-- UTF8 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- Maven settings -->
+        <maven-compiler.source.version>1.8</maven-compiler.source.version>
+        <maven-compiler.target.version>1.8</maven-compiler.target.version>
+        <!-- For the Bukkit plugin -->
+        <bukkit-api.version>1.14-R0.1-SNAPSHOT</bukkit-api.version>
+        <plugin-annotations.version>1.2.0-SNAPSHOT</plugin-annotations.version>
+        <!-- For the BungeeCord plugin -->
+        <bungeecord.version>1.14-SNAPSHOT</bungeecord.version>
+        <mysql-jdbc.version>8.0.17</mysql-jdbc.version>
+        <dbwrapper.version>0.2.0-SNAPSHOT</dbwrapper.version>
+        <!-- LuckPerms API for different use cases -->
+        <luckperms-api.version>5.0</luckperms-api.version>
+        <!-- Testing depedencies -->
+        <junit.version>4.12</junit.version>
+        <powermock.version>1.4.9</powermock.version>
     </properties>
     
-    <groupId>xyz.joestr</groupId>
-    <artifactId>bungeeq</artifactId>
-    <version>0.3.3-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <!-- Project -->
+    <groupId>xyz.joestr.bungeeq</groupId>
+    <artifactId>parent</artifactId>
+    <packaging>pom</packaging>
+    <version>${bungeeq.version}</version>
     
-    <name>BungeeQ</name>
+    <!-- Project metadata -->
+    <name>BungeeQ_Parent</name>
     <url>https://github.com/joestr/BungeeQ</url>
-    <description>Freischaltplugin für BungeeCord</description>
+    <description>Ein Freischalt-System.</description>
     <inceptionYear>2019</inceptionYear>
-    
+
+    <!-- Modules -->
+    <modules>
+        <module>Bukkit-Plugin</module>
+        <module>BungeeCord-Plugin</module>
+    </modules>
+
+    <!-- Organization information -->
     <organization>
         <name>joestr</name>
         <url>https://www.joestr.xyz</url>
     </organization>
-    
+
+    <!-- Licensing -->
     <licenses>
         <license>
-            <name>MIT license</name>
+            <name>Private license</name>
             <distribution>repo</distribution>
-            <url>https://github.com/joestr/BungeeQ/master/blob/LICENSE</url>
+            <url>https://github.com/joestr/BungeeQ/LICENSE</url>
             <!--<comments></comments>-->
         </license>
     </licenses>
     
+    <!-- Developer information -->
     <developers>
         <developer>
             <id>joestr</id>
@@ -45,6 +78,7 @@
         </developer>
     </developers>
     
+    <!-- Contributor information -->
     <contributors>
         <contributor>
             <name>Joel Strasser</name>
@@ -58,13 +92,15 @@
         </contributor>
     </contributors>
     
+    <!-- Source Code Management -->
     <scm>
         <connection>scm:git:https://github.com/joestr/BungeeQ</connection>
         <developerConnection>scm:git:https://github.com/joestr/BungeeQ</developerConnection>
         <tag>HEAD</tag>
-        <url>https//github.com/joestr/BungeeQ</url>
+        <url>https://github.com/joestr/BungeeQ</url>
     </scm>
     
+    <!-- Continous Integration Management
     <ciManagement>
         <system>jenkins</system>
         <url>https://ci.joestr.xyz</url>
@@ -78,8 +114,9 @@
                 <sendOnSuccess>false</sendOnSuccess>
             </notifier>
         </notifiers>
-    </ciManagement>
+    </ciManagement>-->
     
+    <!-- Distribution Management -->
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
@@ -93,36 +130,13 @@
         </repository>
     </distributionManagement>
     
+    <!-- Issue Management-->
     <issueManagement>
-        <system>github</system>
-        <url>https://github.com/joestr/BungeeQ/issues</url>
+        <system>bugzilla</system>
+        <url>https://bugs.joestr.xyz/</url>
     </issueManagement>
     
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>net.md-5</groupId>
-                <artifactId>bungeecord-api</artifactId>
-                <version>1.14-SNAPSHOT</version>
-                <type>jar</type>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>me.lucko.luckperms</groupId>
-                <artifactId>luckperms-api</artifactId>
-                <version>4.3</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>xyz.joestr</groupId>
-                <artifactId>dbwrapper</artifactId>
-                <version>0.1.2</version>
-                <type>jar</type>
-                <scope>compile</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-    
+    <!-- Repository Management -->
     <repositories>
         <repository>
             <id>release-repo</id>
@@ -146,26 +160,86 @@
         </repository>
     </repositories>
     
+    <!-- Dependency Management -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.bukkit</groupId>
+                <artifactId>bukkit</artifactId>
+                <version>${bukkit-api.version}</version>
+                <type>jar</type>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.spigotmc</groupId>
+                <artifactId>plugin-annotations</artifactId>
+                <version>${plugin-annotations.version}</version>
+                <type>jar</type>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>net.md-5</groupId>
+                <artifactId>bungeecord-api</artifactId>
+                <version>${bungeecord.version}</version>
+                <type>jar</type>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>net.md-5</groupId>
+                <artifactId>bungeecord-chat</artifactId>
+                <version>${bungeecord.version}</version>
+                <type>jar</type>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-jdbc.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>xyz.joestr</groupId>
+                <artifactId>dbwrapper</artifactId>
+                <version>${dbwrapper.version}</version>
+                <type>jar</type>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>net.luckperms</groupId>
+                <artifactId>api</artifactId>
+                <version>${luckperms-api.version}</version>
+                <type>jar</type>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <type>jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-module-junit4</artifactId>
+                <version>${powermock.version}</version>
+                <type>jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-api-mockito</artifactId>
+                <version>${powermock.version}</version>
+                <type>jar</type>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
+    <!-- Dependencies -->
     <dependencies>
-        <dependency>
-            <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-api</artifactId>
-            <type>jar</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>me.lucko.luckperms</groupId>
-            <artifactId>luckperms-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>xyz.joestr</groupId>
-            <artifactId>dbwrapper</artifactId>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
     
+    <!-- Repository Management for plugins -->
     <pluginRepositories>
         <pluginRepository>
             <id>release-repo</id>
@@ -189,100 +263,62 @@
         </pluginRepository>
     </pluginRepositories>
     
+    <!-- Build process -->
     <build>
-        <resources>
-            <resource>
-                <directory>${project.basedir}/src/main/resources</directory>
-                <includes>
-                    <include>**/*.yml</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.1</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <artifactSet>
-                                <includes>
-                                    <include>xyz.joestr:dbwrapper</include>
-                                </includes>
-                                <!--<excludes>
-                                    <exclude>*:*</exclude>
-                                </excludes>-->
-                            </artifactSet>
-                            <relocations>
-                                <relocation>
-                                    <pattern>xyz.joestr.dbwrapper</pattern>
-                                    <shadedPattern>xyz.joestr.bungeeq.thirdparty.xyz.joestr.dbwrapper</shadedPattern>
-                                </relocation>
-                            </relocations>
-                            <shadedClassifierName>shaded</shadedClassifierName>
-                            <shadedArtifactAttached>true</shadedArtifactAttached>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
-                <configuration>
-                    <doclint>none</doclint>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.1.1</version>
+                    <configuration>
+                        <doclint>none</doclint>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>${maven-compiler.source.version}</source>
+                        <target>${maven-compiler.target.version}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.6</version>
+                    <executions>
+                        <execution>
+                            <id>sign-artifacts</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>sign</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>

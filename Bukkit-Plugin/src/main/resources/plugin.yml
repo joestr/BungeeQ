@@ -1,0 +1,33 @@
+main: xyz.joestr.bungeeq.bukkit_plugin.BungeeQBukkitPlugin
+name: '${project.name}'
+version: '${project.version}'
+description: 'BungeeQ - An unlocking system. The Bukkit plugin provides the sound playback.'
+load: STARTUP
+author: joestr
+website: 'https://github.com/joestr/BungeeQ'
+prefix: 'BungeeQ :: Bukkit-Plugin'
+#depend:
+#- WorldEdit
+#- Towny
+#softdepend:
+#- FAWE
+#loadbefore:
+#- Essentials
+#commands:
+#  foo:
+#   description: Foo command
+#   aliases:
+#   - foobar
+#   - fubar
+#   permission: test.foo
+#   permission-message: You do not have permission!
+#   usage: /<command> [test|stop]
+#permissions:
+#  test.foo:
+#   description: Allows foo command
+#   default: op
+#  test.*:
+#   description: Wildcard permission
+#   default: op
+#   children:
+#     test.foo: true

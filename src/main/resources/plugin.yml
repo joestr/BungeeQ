@@ -1,4 +1,0 @@
-name: BungeeQ
-main: xyz.joestr.bungeeq.BungeeQPlugin
-version: ${project.version}
-author: joestr
