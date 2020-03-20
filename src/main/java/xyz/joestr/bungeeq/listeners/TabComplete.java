@@ -32,14 +32,14 @@ public class TabComplete implements Listener {
 
         // args[1] = first arg 
         if (args.length == 1) {
-            // -/bungeeq reload | -/bungeeq update
+            // -/bungeeq <reload|update>
             if(event.getCursor().startsWith("/" + Configuration.BungeeQ.command()) || event.getCursor().startsWith("/" + Configuration.BungeeQ.alias())) {
                 sug.add("reload");
                 sug.add("update");
                 return;
             }
 
-            // -/qhistory <(Proxyplayer) playername>
+            // -/qhistory <Proxyplayer playername>
             if(event.getCursor().startsWith("/" + Configuration.Q.History.command()) || event.getCursor().startsWith("/" + Configuration.Q.History.alias())) {
                 for (ProxiedPlayer player : pl.getProxy().getPlayers()) {
                     sug.add(player.getName());
@@ -47,9 +47,8 @@ public class TabComplete implements Listener {
                 return;
             }
 
-            // -/qwatch <(RunningUnlocks) playername>
+            // -/qwatch <RunningUnlocks playername>
             if(event.getCursor().startsWith("/" + Configuration.Q.Watch.command()) || event.getCursor().startsWith("/" + Configuration.Q.Watch.alias())) {
-
                 List<UnlockSession> sessions = UnlockManager.getInstance().getRunningUnlocks();
                 for (UnlockSession session : sessions) {
                     ProxiedPlayer p = pl.getProxy().getPlayer(session.getTarget());
@@ -57,10 +56,9 @@ public class TabComplete implements Listener {
                 }
                 return;
             }
-
-
-
         }
+
+        
 
     }
 }
