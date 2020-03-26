@@ -18,15 +18,12 @@ import xyz.joestr.bungeeq.bungeecord_plugin.unlockmanager.UnlockManager;
  */
 public class PlayerLeave implements Listener {
 
-    @EventHandler
-    public void onLeave(PlayerDisconnectEvent event) {
-
-        ProxiedPlayer player = event.getPlayer();
-
-        CompletableFuture.runAsync(() -> {
-
-            UnlockManager.getInstance().removePossibleUnlocker(player.getUniqueId());
-            UnlockManager.getInstance().removePlayerFromQueue(player.getUniqueId());
-        });
-    }
+  @EventHandler
+  public void onLeave(PlayerDisconnectEvent event) {
+    ProxiedPlayer player = event.getPlayer();
+    CompletableFuture.runAsync(() -> {
+      UnlockManager.getInstance().removePossibleUnlocker(player.getUniqueId());
+      UnlockManager.getInstance().removePlayerFromQueue(player.getUniqueId());
+    });
+  }
 }
