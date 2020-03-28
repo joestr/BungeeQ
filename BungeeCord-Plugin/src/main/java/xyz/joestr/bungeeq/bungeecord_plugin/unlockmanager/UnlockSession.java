@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.luckperms.api.LuckPermsProvider;
@@ -280,7 +281,7 @@ public class UnlockSession {
             .getUserManager()
             .saveUser(user);
         
-        LuckPermsProvider.get().runUpdateTask();
+        LuckPermsProvider.get().getMessagingService().get().pushUserUpdate(user);
 
         this.end = LocalDateTime.now();
 
