@@ -13,3 +13,5 @@ questions:
     - 'Hast du noch irgendwelche Fragen?'
     - 'Dann schalte ich dich nun frei. Viel Spaß!'
 unlock_group: 'player'
+send_global_message: true
+global_message: '["",{"text":"Willkommen auf dem Server, ","color":"yellow"},{"text":"?target_name","color":"gray"},{"text":"!","color":"yellow"}]'

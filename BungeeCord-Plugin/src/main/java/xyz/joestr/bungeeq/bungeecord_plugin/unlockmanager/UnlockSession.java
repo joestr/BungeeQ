@@ -22,6 +22,9 @@ import net.luckperms.api.node.Node;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.chat.BaseComponentSerializer;
+import net.md_5.bungee.chat.ComponentSerializer;
+import net.md_5.bungee.chat.TextComponentSerializer;
 import xyz.joestr.bungeeq.bungeecord_plugin.configuration.Configuration;
 
 /**
@@ -260,6 +263,15 @@ public class UnlockSession {
                     + " angenommen!"
                 )
             );
+        
+        if(Configuration.ConfigurationFileValues.sendGlobalMessage()) {
+          ProxyServer.getInstance().broadcast(
+            ComponentSerializer.parse(
+              Configuration.ConfigurationFileValues.globalMessage()
+              .replace("?target_name", this.targetName)
+            )
+          );
+        }
 
         User user
             = LuckPermsProvider

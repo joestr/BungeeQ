@@ -443,6 +443,14 @@ public class Configuration {
 
             return BungeeQBungeeCordPlugin.configuration.getString("unlock_group");
         }
+        
+        public static boolean sendGlobalMessage() {
+          return BungeeQBungeeCordPlugin.configuration.getBoolean("send_global_message");
+        }
+        
+        public static String globalMessage() {
+          return BungeeQBungeeCordPlugin.configuration.getString("global_message");
+        }
     }
 
     public static class Informable {
