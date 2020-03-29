@@ -119,13 +119,13 @@
   <!-- Distribution Management -->
   <distributionManagement>
     <snapshotRepository>
-      <id>ossrh</id>
-      <name>Sonatype Central Repository</name>
+      <id>sonatype-oss-repo</id>
+      <name>Sonatype Central - Snapshot repo</name>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
     <repository>
-      <id>ossrh</id>
-      <name>Sonatype Central Repository</name>
+      <id>sonatype-oss-repo</id>
+      <name>Sonatype Central - Staging repo</name>
       <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
