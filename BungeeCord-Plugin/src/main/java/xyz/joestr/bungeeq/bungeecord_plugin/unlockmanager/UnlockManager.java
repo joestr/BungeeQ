@@ -162,12 +162,13 @@ public class UnlockManager {
         this.runningUnlocks.add(new UnlockSession(target, unlocker, 0));
 
         this.informUnlockers(
-            Configuration.transformForUnlockers(
-                ProxyServer.getInstance().getPlayer(unlocker).getName()
-                + " schaltet nun "
-                + ProxyServer.getInstance().getPlayer(target).getName()
-                + " frei."
-            )
+          Configuration.transformForUnlockers(
+            ProxyServer.getInstance().getPlayer(unlocker).getName()
+            + " schaltet nun "
+            + ProxyServer.getInstance().getPlayer(target).getName()
+            + " frei." +
+              (!this.unlockQueue.isEmpty() ? " (Es sind noch " + this.unlockQueue.size() + "  Gäste in der Warteschlange.)" : "")
+          )
         );
 
         return true;
