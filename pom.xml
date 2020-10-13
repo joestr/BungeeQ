@@ -25,7 +25,7 @@
     <!-- LuckPerms API for different use cases -->
     <luckperms-api.version>5.0</luckperms-api.version>
     <!-- Testing depedencies -->
-    <junit.version>4.12</junit.version>
+    <junit.version>4.13.1</junit.version>
     <powermock.version>1.4.9</powermock.version>
   </properties>
     
