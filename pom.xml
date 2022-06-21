@@ -20,7 +20,7 @@
     <plugin-annotations.version>1.2.0-SNAPSHOT</plugin-annotations.version>
     <!-- For the BungeeCord plugin -->
     <bungeecord.version>1.14-SNAPSHOT</bungeecord.version>
-    <mysql-jdbc.version>8.0.17</mysql-jdbc.version>
+    <mysql-jdbc.version>8.0.28</mysql-jdbc.version>
     <dbwrapper.version>0.2.0-SNAPSHOT</dbwrapper.version>
     <!-- LuckPerms API for different use cases -->
     <luckperms-api.version>5.0</luckperms-api.version>
