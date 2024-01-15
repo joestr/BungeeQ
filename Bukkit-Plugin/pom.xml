@@ -9,7 +9,7 @@
         <version>${bungeeq.version}</version>
     </parent>
     
-    <name>BungeeQ_Bukkit-Plugin</name>
+    <name>BungeeQ :: Bukkit-Plugin</name>
     
     <groupId>xyz.joestr.bungeeq</groupId>
     <artifactId>bukkit_plugin</artifactId>

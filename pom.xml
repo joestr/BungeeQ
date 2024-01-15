@@ -36,7 +36,7 @@
   <version>${bungeeq.version}</version>
     
   <!-- Project metadata -->
-  <name>BungeeQ_Parent</name>
+  <name>BungeeQ :: Parent</name>
   <url>https://github.com/joestr/BungeeQ</url>
   <description>Ein Freischalt-System.</description>
   <inceptionYear>2019</inceptionYear>
@@ -139,8 +139,8 @@
   <!-- Repository Management -->
   <repositories>
     <repository>
-      <id>release-repo</id>
-      <url>https://mvn-repo.joestr.xyz/repository/releases/</url>
+      <id>joestrhq-release-repo</id>
+      <url>https://mvn-repo.joestr.at/repository/releases/</url>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
@@ -149,8 +149,8 @@
       </releases>
     </repository>
     <repository>
-      <id>snapshot-repo</id>
-      <url>https://mvn-repo.joestr.xyz/repository/snapshots/</url>
+      <id>joestrhq-snapshot-repo</id>
+      <url>https://mvn-repo.joestr.at/repository/snapshots/</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>

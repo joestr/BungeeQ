@@ -9,7 +9,7 @@
         <version>${bungeeq.version}</version>
     </parent>
     
-    <name>BungeeQ_BungeeCord-Plugin</name>
+    <name>BungeeQ :: BungeeCord-Plugin</name>
     
     <groupId>xyz.joestr.bungeeq</groupId>
     <artifactId>bungeecord_plugin</artifactId>

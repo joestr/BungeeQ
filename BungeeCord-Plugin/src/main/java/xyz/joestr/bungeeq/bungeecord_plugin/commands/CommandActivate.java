@@ -9,6 +9,7 @@ import xyz.joestr.bungeeq.bungeecord_plugin.configuration.Configuration;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
+import net.md_5.bungee.api.plugin.TabExecutor;
 import xyz.joestr.bungeeq.bungeecord_plugin.unlockmanager.UnlockManager;
 
 /**
@@ -17,39 +18,37 @@ import xyz.joestr.bungeeq.bungeecord_plugin.unlockmanager.UnlockManager;
  */
 public class CommandActivate extends Command {
 
-    public CommandActivate(String name, String permission, String... aliases) {
-        super(name, permission, aliases);
+  public CommandActivate(String name, String permission, String... aliases) {
+    super(name, permission, aliases);
+  }
+
+  @Override
+  public void execute(CommandSender commandSender, String[] strings) {
+
+    if (!(commandSender instanceof ProxiedPlayer)) {
+
+      commandSender.sendMessage(
+        Configuration.commandSenderIsNotAProxiedPlayer()
+      );
+
+      return;
     }
 
-    @Override
-    public void execute(CommandSender commandSender, String[] strings) {
+    ProxiedPlayer player = (ProxiedPlayer) commandSender;
 
-        if (!(commandSender instanceof ProxiedPlayer)) {
+    if (strings.length == 0) {
 
-            commandSender.sendMessage(
-                Configuration.commandSenderIsNotAProxiedPlayer()
-            );
+      UnlockManager.getInstance().queuePlayer(player.getUniqueId());
 
-            return;
-        }
-
-        ProxiedPlayer player = (ProxiedPlayer) commandSender;
-
-        if (strings.length == 0) {
-
-            UnlockManager.getInstance().queuePlayer(player.getUniqueId());
-            
-            
-
-            return;
-        }
-
-        player.sendMessage(
-            Configuration.usage(
-                Configuration.Activate.command()
-            )
-        );
-
-        return;
+      return;
     }
+
+    player.sendMessage(
+      Configuration.usage(
+        Configuration.Activate.command()
+      )
+    );
+
+    return;
+  }
 }
