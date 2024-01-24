@@ -32,7 +32,7 @@ import xyz.joestr.bungeeq.bungeecord_plugin.configuration.Configuration;
 import xyz.joestr.bungeeq.bungeecord_plugin.listeners.PlayerChat;
 import xyz.joestr.bungeeq.bungeecord_plugin.listeners.PlayerJoin;
 import xyz.joestr.bungeeq.bungeecord_plugin.listeners.PlayerLeave;
-import xyz.joestr.bungeeq.listeners.TabComplete;
+import xyz.joestr.bungeeq.bungeecord_plugin.listeners.TabComplete;
 
 /**
  *
