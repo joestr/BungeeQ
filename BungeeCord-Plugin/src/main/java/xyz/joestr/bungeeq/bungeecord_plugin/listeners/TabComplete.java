@@ -1,4 +1,4 @@
-package xyz.joestr.bungeeq.listeners;
+package xyz.joestr.bungeeq.bungeecord_plugin.listeners;
 
 import java.util.List;
 
