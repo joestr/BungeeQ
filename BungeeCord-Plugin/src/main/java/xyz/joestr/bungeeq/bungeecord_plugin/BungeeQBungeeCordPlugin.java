@@ -87,7 +87,7 @@ public class BungeeQBungeeCordPlugin extends Plugin {
             return;
         }
         
-        this.getProxy().registerChannel("bungeeq:enqueuesound");
+        this.getProxy().registerChannel("bungeeq:sound.enqueue");
 
         this.getProxy().getPluginManager().registerCommand(this,
             new CommandActivate(
