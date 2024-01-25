@@ -26,8 +26,8 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
         <dependency>
-            <groupId>xyz.joestr</groupId>
-            <artifactId>dbwrapper</artifactId>
+            <groupId>com.j256.ormlite</groupId>
+            <artifactId>ormlite-jdbc</artifactId>
         </dependency>
         <dependency>
             <groupId>net.luckperms</groupId>

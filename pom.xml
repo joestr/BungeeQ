@@ -21,7 +21,7 @@
     <!-- For the BungeeCord plugin -->
     <bungeecord.version>1.14-SNAPSHOT</bungeecord.version>
     <mysql-jdbc.version>8.0.28</mysql-jdbc.version>
-    <dbwrapper.version>0.2.0-SNAPSHOT</dbwrapper.version>
+    <ormlite.version>6.1</ormlite.version>
     <!-- LuckPerms API for different use cases -->
     <luckperms-api.version>5.0</luckperms-api.version>
     <!-- Testing depedencies -->
@@ -198,10 +198,9 @@
         <scope>compile</scope>
       </dependency>
       <dependency>
-        <groupId>xyz.joestr</groupId>
-        <artifactId>dbwrapper</artifactId>
-        <version>${dbwrapper.version}</version>
-        <type>jar</type>
+        <groupId>com.j256.ormlite</groupId>
+        <artifactId>ormlite-jdbc</artifactId>
+        <version>${ormlite.version}</version>
         <scope>compile</scope>
       </dependency>
       <dependency>
