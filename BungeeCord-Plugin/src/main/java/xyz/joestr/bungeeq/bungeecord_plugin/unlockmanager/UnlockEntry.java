@@ -5,101 +5,75 @@
  */
 package xyz.joestr.bungeeq.bungeecord_plugin.unlockmanager;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import xyz.joestr.dbwrapper.DatabaseWrapable;
 
 /**
  *
  * @author Joel
  */
-public class UnlockEntry implements DatabaseWrapable {
+@DatabaseTable(tableName = "unlockentry")
+public class UnlockEntry {
 
-    Integer id;
-    String target;
-    String unlocker;
-    LocalDateTime start;
-    LocalDateTime end;
-    Integer status;
-    String notice;
+  @DatabaseField(generatedId = true)
+  Integer id;
+  @DatabaseField(canBeNull = false)
+  String target;
+  @DatabaseField(canBeNull = false)
+  String unlocker;
+  @DatabaseField(canBeNull = false)
+  LocalDateTime start;
+  @DatabaseField(canBeNull = false)
+  LocalDateTime end;
+  @DatabaseField(canBeNull = false)
+  Integer status;
+  @DatabaseField(canBeNull = false)
+  String notice;
 
-    public UnlockEntry() {
+  public UnlockEntry() {
 
-    }
+  }
 
-    public UnlockEntry(Integer id, String target, String unlocker, LocalDateTime start, LocalDateTime end, Integer status, String notice) {
-        this.id = id;
-        this.target = target;
-        this.unlocker = unlocker;
-        this.start = start;
-        this.end = end;
-        this.status = status;
-        this.notice = notice;
-    }
+  public UnlockEntry(Integer id, String target, String unlocker, LocalDateTime start, LocalDateTime end, Integer status, String notice) {
+    this.id = id;
+    this.target = target;
+    this.unlocker = unlocker;
+    this.start = start;
+    this.end = end;
+    this.status = status;
+    this.notice = notice;
+  }
 
-    public Integer getId() {
-        return id;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
-    public String getTarget() {
-        return target;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public String getUnlocker() {
-        return unlocker;
-    }
+  public String getTarget() {
+    return target;
+  }
 
-    public LocalDateTime getStart() {
-        return start;
-    }
+  public String getUnlocker() {
+    return unlocker;
+  }
 
-    public LocalDateTime getEnd() {
-        return end;
-    }
+  public LocalDateTime getStart() {
+    return start;
+  }
 
-    public Integer getStatus() {
-        return status;
-    }
+  public LocalDateTime getEnd() {
+    return end;
+  }
 
-    public String getNotice() {
-        return notice;
-    }
+  public Integer getStatus() {
+    return status;
+  }
 
-    @Override
-    public String databaseTableName() {
-        return "bq_unlocks";
-    }
-
-    @Override
-    public Collection<String> databaseColumnNames() {
-        List<String> result = new ArrayList<>();
-        result.add("id");
-        result.add("target_uuid");
-        result.add("unlocker_uuid");
-        result.add("start_datetime");
-        result.add("end_datetime");
-        result.add("status");
-        result.add("notice");
-        return result;
-    }
-
-    @Override
-    public Collection<String> classFieldNames() {
-        List<String> result = new ArrayList<>();
-        result.add("id");
-        result.add("target");
-        result.add("unlocker");
-        result.add("start");
-        result.add("end");
-        result.add("status");
-        result.add("notice");
-        return result;
-    }
-
+  public String getNotice() {
+    return notice;
+  }
 }
