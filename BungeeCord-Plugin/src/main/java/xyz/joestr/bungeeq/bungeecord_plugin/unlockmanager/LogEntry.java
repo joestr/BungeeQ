@@ -5,19 +5,19 @@
  */
 package xyz.joestr.bungeeq.bungeecord_plugin.unlockmanager;
 
-import xyz.joestr.dbwrapper.annotations.WrappedField;
-import xyz.joestr.dbwrapper.annotations.WrappedTable;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 /**
  *
  * @author Joel
  */
-@WrappedTable(name = "bq_logs")
+@DatabaseTable(tableName = "logentry")
 public class LogEntry {
     
-    @WrappedField(name = "unlock_id")
+    @DatabaseField(generatedId = true)
     Integer id;
-    @WrappedField(name = "log")
+    @DatabaseField(canBeNull = false)
     String log;
 
     public LogEntry() {
