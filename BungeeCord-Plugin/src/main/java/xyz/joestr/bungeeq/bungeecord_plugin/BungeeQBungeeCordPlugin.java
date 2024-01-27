@@ -9,9 +9,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.md_5.bungee.api.ProxyServer;
 import xyz.joestr.bungeeq.bungeecord_plugin.commands.CommandActivate;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.ConfigurationProvider;
@@ -29,6 +29,7 @@ import xyz.joestr.bungeeq.bungeecord_plugin.commands.CommandQList;
 import xyz.joestr.bungeeq.bungeecord_plugin.commands.CommandQRepeat;
 import xyz.joestr.bungeeq.bungeecord_plugin.commands.CommandQWatch;
 import xyz.joestr.bungeeq.bungeecord_plugin.configuration.Configuration;
+import xyz.joestr.bungeeq.bungeecord_plugin.configuration.DatabaseConfiguration;
 import xyz.joestr.bungeeq.bungeecord_plugin.listeners.PlayerChat;
 import xyz.joestr.bungeeq.bungeecord_plugin.listeners.PlayerJoin;
 import xyz.joestr.bungeeq.bungeecord_plugin.listeners.PlayerLeave;
@@ -40,158 +41,164 @@ import xyz.joestr.bungeeq.bungeecord_plugin.listeners.TabComplete;
  */
 public class BungeeQBungeeCordPlugin extends Plugin {
 
-    public static BungeeQBungeeCordPlugin instance;
-    public static net.md_5.bungee.config.Configuration configuration;
-    public static File configurationFile;
-    
-    @Override
-    public void onEnable() {
-        
-        instance = this;
-        
-        boolean successfullyLoaded = false;
+  private static final Logger LOG = Logger.getLogger(BungeeQBungeeCordPlugin.class.getName());
+  
+  public static BungeeQBungeeCordPlugin instance;
+  public static net.md_5.bungee.config.Configuration configuration;
+  public static File configurationFile;
 
-        configurationFile = new File(getDataFolder(), "config.yml");
+  @Override
+  public void onEnable() {
 
-        // Check if the configuration file exists
-        if (configurationFile.exists()) {
+    instance = this;
 
-            try {
-                configuration
-                    = ConfigurationProvider
-                        .getProvider(YamlConfiguration.class)
-                        .load(configurationFile);
-                successfullyLoaded = true;
-            } catch (IOException ex) {
-                Logger.getLogger(BungeeQBungeeCordPlugin.class.getName())
-                    .log(Level.SEVERE, null, ex);
-            }
-        } else {
+    boolean successfullyLoaded = false;
 
-            if (!getDataFolder().exists()) {
-                getDataFolder().mkdir();
-            }
+    configurationFile = new File(getDataFolder(), "config.yml");
 
-            File file = new File(getDataFolder(), "config.yml");
+    // Check if the configuration file exists
+    if (configurationFile.exists()) {
 
-            if (!file.exists()) {
-                try (InputStream in = getResourceAsStream("config.yml")) {
-                    Files.copy(in, file.toPath());
-                } catch (IOException ex) {
-                    Logger.getLogger(BungeeQBungeeCordPlugin.class.getName())
-                        .log(Level.SEVERE, null, ex);
-                }
-            }
+      try {
+        configuration
+          = ConfigurationProvider
+            .getProvider(YamlConfiguration.class)
+            .load(configurationFile);
+        successfullyLoaded = true;
+      } catch (IOException ex) {
+        LOG.log(Level.SEVERE, null, ex);
+      }
+    } else {
+
+      if (!getDataFolder().exists()) {
+        getDataFolder().mkdir();
+      }
+
+      File file = new File(getDataFolder(), "config.yml");
+
+      if (!file.exists()) {
+        try (InputStream in = getResourceAsStream("config.yml")) {
+          Files.copy(in, file.toPath());
+        } catch (IOException ex) {
+          LOG.log(Level.SEVERE, null, ex);
         }
-
-        if (!successfullyLoaded) {
-            return;
-        }
-        
-        this.getProxy().registerChannel("bungeeq:sound.enqueue");
-
-        this.getProxy().getPluginManager().registerCommand(this,
-            new CommandActivate(
-                Configuration.Activate.command(),
-                Configuration.Activate.permission(),
-                Configuration.Activate.alias()
-            )
-        );
-        this.getProxy().getPluginManager().registerCommand(this,
-            new CommandExit(
-                Configuration.Exit.command(),
-                Configuration.Exit.permission(),
-                Configuration.Exit.alias()
-            )
-        );
-        this.getProxy().getPluginManager().registerCommand(this,
-            new CommandQGet(
-                Configuration.Q.Get.command(),
-                Configuration.Q.Get.permission(),
-                Configuration.Q.Get.alias()
-            )
-        );
-        this.getProxy().getPluginManager().registerCommand(this,
-            new CommandQAsk(
-                Configuration.Q.Ask.command(),
-                Configuration.Q.Ask.permission(),
-                Configuration.Q.Ask.alias()
-            )
-        );
-        this.getProxy().getPluginManager().registerCommand(this,
-            new CommandQRepeat(
-                Configuration.Q.Repeat.command(),
-                Configuration.Q.Repeat.permission(),
-                Configuration.Q.Repeat.alias()
-            )
-        );
-        this.getProxy().getPluginManager().registerCommand(this,
-            new CommandQChat(
-                Configuration.Q.Chat.command(),
-                Configuration.Q.Chat.permission(),
-                Configuration.Q.Chat.alias()
-            )
-        );
-        this.getProxy().getPluginManager().registerCommand(this,
-            new CommandQExit(
-                Configuration.Q.Exit.command(),
-                Configuration.Q.Exit.permission(),
-                Configuration.Q.Exit.alias()
-            )
-        );
-        this.getProxy().getPluginManager().registerCommand(this,
-            new CommandQDecline(
-                Configuration.Q.Decline.command(),
-                Configuration.Q.Decline.permission(),
-                Configuration.Q.Decline.alias()
-            )
-        );
-        this.getProxy().getPluginManager().registerCommand(this,
-            new CommandQUnlock(
-                Configuration.Q.Unlock.command(),
-                Configuration.Q.Unlock.permission(),
-                Configuration.Q.Unlock.alias()
-            )
-        );
-        this.getProxy().getPluginManager().registerCommand(this,
-            new CommandQHistory(
-                Configuration.Q.History.command(),
-                Configuration.Q.History.permission(),
-                Configuration.Q.History.alias()
-            )
-        );
-        this.getProxy().getPluginManager().registerCommand(this,
-            new CommandQWatch(
-                Configuration.Q.Watch.command(),
-                Configuration.Q.Watch.permission(),
-                Configuration.Q.Watch.alias()
-            )
-        );
-        this.getProxy().getPluginManager().registerCommand(this,
-            new CommandQList(
-                Configuration.Q.List.command(),
-                Configuration.Q.List.permission(),
-                Configuration.Q.List.alias()
-            )
-        );
-        this.getProxy().getPluginManager().registerCommand(this,
-            new CommandBungeeQ(
-                Configuration.BungeeQ.command(),
-                Configuration.BungeeQ.permission(),
-                Configuration.BungeeQ.alias()
-            )
-        );
-        this.getProxy().getPluginManager().registerListener(this,
-            new PlayerChat()
-        );
-        this.getProxy().getPluginManager().registerListener(this,
-            new PlayerJoin()
-        );
-        this.getProxy().getPluginManager().registerListener(this,
-            new PlayerLeave()
-        );
-        this.getProxy().getPluginManager().registerListener(this,
-            new TabComplete(this)
-        );
+      }
     }
+    
+    try {
+      DatabaseConfiguration.getInstance(Configuration.ConfigurationFileValues.connectionString());
+    } catch (ClassNotFoundException | SQLException ex) {
+      LOG.log(Level.SEVERE, null, ex);
+    }
+
+    if (!successfullyLoaded) {
+      return;
+    }
+
+    this.getProxy().registerChannel("bungeeq:sound.enqueue");
+
+    this.getProxy().getPluginManager().registerCommand(this,
+      new CommandActivate(
+        Configuration.Activate.command(),
+        Configuration.Activate.permission(),
+        Configuration.Activate.alias()
+      )
+    );
+    this.getProxy().getPluginManager().registerCommand(this,
+      new CommandExit(
+        Configuration.Exit.command(),
+        Configuration.Exit.permission(),
+        Configuration.Exit.alias()
+      )
+    );
+    this.getProxy().getPluginManager().registerCommand(this,
+      new CommandQGet(
+        Configuration.Q.Get.command(),
+        Configuration.Q.Get.permission(),
+        Configuration.Q.Get.alias()
+      )
+    );
+    this.getProxy().getPluginManager().registerCommand(this,
+      new CommandQAsk(
+        Configuration.Q.Ask.command(),
+        Configuration.Q.Ask.permission(),
+        Configuration.Q.Ask.alias()
+      )
+    );
+    this.getProxy().getPluginManager().registerCommand(this,
+      new CommandQRepeat(
+        Configuration.Q.Repeat.command(),
+        Configuration.Q.Repeat.permission(),
+        Configuration.Q.Repeat.alias()
+      )
+    );
+    this.getProxy().getPluginManager().registerCommand(this,
+      new CommandQChat(
+        Configuration.Q.Chat.command(),
+        Configuration.Q.Chat.permission(),
+        Configuration.Q.Chat.alias()
+      )
+    );
+    this.getProxy().getPluginManager().registerCommand(this,
+      new CommandQExit(
+        Configuration.Q.Exit.command(),
+        Configuration.Q.Exit.permission(),
+        Configuration.Q.Exit.alias()
+      )
+    );
+    this.getProxy().getPluginManager().registerCommand(this,
+      new CommandQDecline(
+        Configuration.Q.Decline.command(),
+        Configuration.Q.Decline.permission(),
+        Configuration.Q.Decline.alias()
+      )
+    );
+    this.getProxy().getPluginManager().registerCommand(this,
+      new CommandQUnlock(
+        Configuration.Q.Unlock.command(),
+        Configuration.Q.Unlock.permission(),
+        Configuration.Q.Unlock.alias()
+      )
+    );
+    this.getProxy().getPluginManager().registerCommand(this,
+      new CommandQHistory(
+        Configuration.Q.History.command(),
+        Configuration.Q.History.permission(),
+        Configuration.Q.History.alias()
+      )
+    );
+    this.getProxy().getPluginManager().registerCommand(this,
+      new CommandQWatch(
+        Configuration.Q.Watch.command(),
+        Configuration.Q.Watch.permission(),
+        Configuration.Q.Watch.alias()
+      )
+    );
+    this.getProxy().getPluginManager().registerCommand(this,
+      new CommandQList(
+        Configuration.Q.List.command(),
+        Configuration.Q.List.permission(),
+        Configuration.Q.List.alias()
+      )
+    );
+    this.getProxy().getPluginManager().registerCommand(this,
+      new CommandBungeeQ(
+        Configuration.BungeeQ.command(),
+        Configuration.BungeeQ.permission(),
+        Configuration.BungeeQ.alias()
+      )
+    );
+    this.getProxy().getPluginManager().registerListener(this,
+      new PlayerChat()
+    );
+    this.getProxy().getPluginManager().registerListener(this,
+      new PlayerJoin()
+    );
+    this.getProxy().getPluginManager().registerListener(this,
+      new PlayerLeave()
+    );
+    this.getProxy().getPluginManager().registerListener(this,
+      new TabComplete(this)
+    );
+  }
 }
