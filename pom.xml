@@ -7,8 +7,6 @@
 
   <!-- Properties -->
   <properties>
-    <!-- BungeeQ version -->
-    <bungeeq.version>0.5.0-SNAPSHOT</bungeeq.version>
     <!-- UTF8 -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -33,7 +31,7 @@
   <groupId>xyz.joestr.bungeeq</groupId>
   <artifactId>parent</artifactId>
   <packaging>pom</packaging>
-  <version>${bungeeq.version}</version>
+  <version>0.5.0-SNAPSHOT</version>
     
   <!-- Project metadata -->
   <name>BungeeQ :: Parent</name>
