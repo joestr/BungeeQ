@@ -11,19 +11,19 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <!-- Maven settings -->
-    <maven-compiler.source.version>1.8</maven-compiler.source.version>
-    <maven-compiler.target.version>1.8</maven-compiler.target.version>
+    <maven-compiler.source.version>17</maven-compiler.source.version>
+    <maven-compiler.target.version>17</maven-compiler.target.version>
     <!-- For the Bukkit plugin -->
-    <bukkit-api.version>1.14-R0.1-SNAPSHOT</bukkit-api.version>
-    <plugin-annotations.version>1.2.0-SNAPSHOT</plugin-annotations.version>
+    <bukkit-api.version>1.20.4-R0.1-SNAPSHOT</bukkit-api.version>
+    <plugin-annotations.version>1.2.3-SNAPSHOT</plugin-annotations.version>
     <!-- For the BungeeCord plugin -->
-    <bungeecord.version>1.14-SNAPSHOT</bungeecord.version>
-    <mysql-jdbc.version>8.0.28</mysql-jdbc.version>
+    <bungeecord.version>1.17-R0.1-SNAPSHOT</bungeecord.version>
+    <mysql-jdbc.version>8.0.29</mysql-jdbc.version>
     <ormlite.version>6.1</ormlite.version>
     <!-- LuckPerms API for different use cases -->
-    <luckperms-api.version>5.0</luckperms-api.version>
+    <luckperms-api.version>5.3</luckperms-api.version>
     <!-- Testing depedencies -->
-    <junit.version>4.13.1</junit.version>
+    <junit.version>4.13.2</junit.version>
     <powermock.version>1.4.9</powermock.version>
   </properties>
     
@@ -118,12 +118,10 @@
   <distributionManagement>
     <snapshotRepository>
       <id>sonatype-oss-repo</id>
-      <name>Sonatype Central - Snapshot repo</name>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
     <repository>
       <id>sonatype-oss-repo</id>
-      <name>Sonatype Central - Staging repo</name>
       <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
@@ -137,7 +135,7 @@
   <!-- Repository Management -->
   <repositories>
     <repository>
-      <id>joestrhq-release-repo</id>
+      <id>joestrhq-public-releases-repo</id>
       <url>https://mvn-repo.joestr.at/repository/releases/</url>
       <snapshots>
         <enabled>false</enabled>
@@ -147,7 +145,7 @@
       </releases>
     </repository>
     <repository>
-      <id>joestrhq-snapshot-repo</id>
+      <id>joestrhq-public-snapshots-repo</id>
       <url>https://mvn-repo.joestr.at/repository/snapshots/</url>
       <snapshots>
         <enabled>true</enabled>
@@ -239,8 +237,8 @@
   <!-- Repository Management for plugins -->
   <pluginRepositories>
     <pluginRepository>
-      <id>release-repo</id>
-      <url>https://mvn-repo.joestr.xyz/repository/releases/</url>
+      <id>joestrhq-public-releases-repo</id>
+      <url>https://mvn-repo.joestr.at/repository/releases/</url>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
@@ -249,8 +247,8 @@
       </releases>
     </pluginRepository>
     <pluginRepository>
-      <id>snapshot-repo</id>
-      <url>https://mvn-repo.joestr.xyz/repository/snapshots/</url>
+      <id>joestrhq-public-snapshots-repo</id>
+      <url>https://mvn-repo.joestr.at/repository/snapshots/</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -318,4 +316,15 @@
       </plugins>
     </pluginManagement>
   </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <configLocation>config/google_checks.xml</configLocation>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>
