@@ -12,7 +12,7 @@
     <name>BungeeQ :: Dependency Spigot API</name>
     <repositories>
       <repository>
-        <id>spigotmc-snapshots-repository</id>
+        <id>spigotmc-repo</id>
         <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         <snapshots>
           <enabled>true</enabled>
